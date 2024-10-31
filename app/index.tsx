@@ -60,88 +60,113 @@ export default function Index() {
         <Text fontSize={"$4"}>{user_data.FullName}</Text>
       </XStack>
       <XStack gap={16}>
-        <Button
-          width={btn_width}
-          height={btn_width}
-          onPress={() => router.push("/marks")}
-        >
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconNumber1 color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>Známky</Text>
-          </YStack>
-        </Button>
-        <Button width={btn_width} height={btn_width}>
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconMessage color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>Komens</Text>
-          </YStack>
-        </Button>
-        <Button width={btn_width} height={btn_width}>
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconMoodSick color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>Absence</Text>
-          </YStack>
-        </Button>
+        <Theme name="btn_marks">
+          <Button
+            width={btn_width}
+            height={btn_width}
+            onPress={() => router.push("/marks")}
+            opacity={0.8}
+          >
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconNumber1 color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>Známky</Text>
+            </YStack>
+          </Button>
+        </Theme>
+        <Theme name="btn_komens">
+          <Button width={btn_width} height={btn_width}>
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconMessage color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>Komens</Text>
+            </YStack>
+          </Button>
+        </Theme>
+        <Theme name="btn_timetable">
+          <Button width={btn_width} height={btn_width}>
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconTable color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>Rozvrh</Text>
+            </YStack>
+          </Button>
+        </Theme>
       </XStack>
       <XStack gap={16}>
-        <Button width={btn_width} height={btn_width}>
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconTable color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>Rozvrh</Text>
-          </YStack>
-        </Button>
-        <Button width={btn_width} height={btn_width}>
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconUsers color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>Suplování</Text>
-          </YStack>
-        </Button>
-        <Button width={btn_width} height={btn_width}>
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconMath color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>Předměty</Text>
-          </YStack>
-        </Button>
+        <Theme name="btn_absence">
+          <Button width={btn_width} height={btn_width}>
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconMoodSick color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>Absence</Text>
+            </YStack>
+          </Button>
+        </Theme>
+        <Theme name="btn_substitution">
+          <Button width={btn_width} height={btn_width}>
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconUsers color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>Suplování</Text>
+            </YStack>
+          </Button>
+        </Theme>
+        <Theme name="btn_subjects">
+          <Button width={btn_width} height={btn_width}>
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconMath color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>Předměty</Text>
+            </YStack>
+          </Button>
+        </Theme>
       </XStack>
       <XStack gap={16}>
-        <Button width={btn_width} height={btn_width}>
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconBook color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>Výuka</Text>
-          </YStack>
-        </Button>
-        <Button width={btn_width} height={btn_width}>
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconHome color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>Domácí úkoly</Text>
-          </YStack>
-        </Button>
-        <Button width={btn_width} height={btn_width}>
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconSectionSign color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>GDPR</Text>
-          </YStack>
-        </Button>
+        <Theme name="btn_lessons">
+          <Button width={btn_width} height={btn_width}>
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconBook color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>Výuka</Text>
+            </YStack>
+          </Button>
+        </Theme>
+        <Theme name="btn_homework">
+          <Button width={btn_width} height={btn_width}>
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconHome color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>Domácí úkoly</Text>
+            </YStack>
+          </Button>
+        </Theme>
+        <Theme name="btn_gdpr">
+          <Button width={btn_width} height={btn_width}>
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconSectionSign color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>GDPR</Text>
+            </YStack>
+          </Button>
+        </Theme>
       </XStack>
       <XStack gap={16}>
-        <Button width={btn_width} height={btn_width}>
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconBell color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>Infokanál</Text>
-          </YStack>
-        </Button>
-        <Button width={btn_width} height={btn_width}>
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconCoins color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>Platby</Text>
-          </YStack>
-        </Button>
-        <Button width={btn_width} height={btn_width}>
-          <YStack justifyContent="center" alignItems="center" gap={8}>
-            <IconFiles color={"#fff"} size={40} stroke={1} />
-            <Text fontSize={11}>Dokumenty</Text>
-          </YStack>
-        </Button>
+        <Theme name="btn_payments">
+          <Button width={btn_width} height={btn_width}>
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconCoins color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>Platby</Text>
+            </YStack>
+          </Button>
+        </Theme>
+        <Theme name="btn_documents">
+          <Button width={btn_width} height={btn_width}>
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconFiles color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>Dokumenty</Text>
+            </YStack>
+          </Button>
+        </Theme>
+        <Theme name="btn_infochannel">
+          <Button width={btn_width} height={btn_width}>
+            <YStack justifyContent="center" alignItems="center" gap={8}>
+              <IconBell color={"#fff"} size={40} stroke={1} />
+              <Text fontSize={11}>Infokanál</Text>
+            </YStack>
+          </Button>
+        </Theme>
       </XStack>
     </AppContainer>
   );
