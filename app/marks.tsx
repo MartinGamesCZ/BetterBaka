@@ -3,7 +3,7 @@ import AppContainer from "@/components/AppContainer/AppContainer";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { Dimensions } from "react-native";
-import { ScrollView, Text, View, XStack, YStack } from "tamagui";
+import { ScrollView, Spinner, Text, View, XStack, YStack } from "tamagui";
 
 export default function Page() {
   const [marks_data, setMarksData] = useState<any>(null);
@@ -20,7 +20,9 @@ export default function Page() {
   if (marks_data === null)
     return (
       <AppContainer>
-        <Text>Loading...</Text>
+        <View alignItems="center" justifyContent="center" height={"100%"}>
+          <Spinner size="large" color="green" />
+        </View>
       </AppContainer>
     );
   if ("error" in marks_data || "Message" in marks_data)

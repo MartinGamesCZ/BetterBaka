@@ -1,6 +1,6 @@
 import AppContainer from "@/components/AppContainer/AppContainer";
 import { Dimensions, StatusBar } from "react-native";
-import { Button, Text, XStack, YStack } from "tamagui";
+import { Button, Spinner, Text, Theme, View, XStack, YStack } from "tamagui";
 import Constants from "expo-constants";
 import IconNumber1 from "tabler-icons-react-native/icons-js/IconNumber1";
 import IconMessage from "tabler-icons-react-native/icons-js/IconMessage";
@@ -38,7 +38,9 @@ export default function Index() {
   if (user_data === null)
     return (
       <AppContainer>
-        <Text>Loading...</Text>
+        <View alignItems="center" justifyContent="center" height={"100%"}>
+          <Spinner size="large" color="green" />
+        </View>
       </AppContainer>
     );
   if ("error" in user_data || "Message" in user_data)
