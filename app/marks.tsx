@@ -30,17 +30,22 @@ export default function Page() {
       </AppContainer>
     );
 
-  const all_marks = marks_data.Subjects.map((s: any) =>
+  const grouped_marks = marks_data.Subjects.map((s: any) =>
     s.Marks.map((m: any) => ({
       ...m,
       Subject: s.Subject,
     }))
   )
     .flat()
-    .sort(
-      (a: any, b: any) =>
-        new Date(b.MarkDate).getTime() - new Date(a.MarkDate).getTime()
-    );
+    .reduce((acc: any, mark: any) => {
+      const date = new Date(mark.MarkDate).toISOString().split("T")[0];
+
+      if (!acc[date]) acc[date] = [];
+
+      acc[date].push(mark);
+
+      return acc;
+    }, {});
 
   return (
     <AppContainer noSidePadding>
@@ -48,29 +53,70 @@ export default function Page() {
         Známky
       </Text>
       <ScrollView paddingLeft={16}>
-        <YStack gap={16} paddingBottom={16}>
-          {all_marks.map((subject: any, i: number) => (
-            <View key={i} width="100%" overflow="scroll">
-              <XStack gap={16} width="100%" alignItems="center">
-                <Text fontSize="$6" fontWeight="bold" width={40}>
-                  {subject.MarkText}
-                </Text>
-                <YStack
-                  width={Dimensions.get("screen").width - 2 * 16 - 16 - 40}
+        {/*<Text paddingBottom={16}>
+          Slovní shrnutí známek / nejnovější známky
+        </Text>*/}
+        <YStack gap={32} paddingBottom={16}>
+          {Object.entries(grouped_marks)
+            .sort(
+              ([a]: [string, any], [b]: [string, any]) =>
+                DateTime.fromFormat(b, "yyyy-MM-dd").toMillis() -
+                DateTime.fromFormat(a, "yyyy-MM-dd").toMillis()
+            )
+            .map(([date, marks]: [string, any], i: number) => (
+              <YStack gap={16} key={i}>
+                <XStack
+                  gap={16}
+                  alignItems="center"
+                  justifyContent="center"
+                  width={Dimensions.get("screen").width - 2 * 16}
                 >
-                  <XStack justifyContent="space-between">
-                    <Text fontSize={11}>{subject.Subject.Name}</Text>
-                    <Text>
-                      {DateTime.fromISO(subject.MarkDate)
-                        .setLocale("cs")
-                        .toFormat("dd. MM. yyyy")}
-                    </Text>
-                  </XStack>
-                  <Text width="100%">{subject.Caption}</Text>
-                </YStack>
-              </XStack>
-            </View>
-          ))}
+                  <View
+                    flexGrow={1}
+                    height={1}
+                    backgroundColor="$borderColor"
+                  />
+                  <Text textAlign="center" opacity={0.8}>
+                    {DateTime.fromFormat(date, "yyyy-MM-dd").toFormat(
+                      "dd. MM. yyyy"
+                    )}
+                  </Text>
+                  <View
+                    flexGrow={1}
+                    height={1}
+                    backgroundColor="$borderColor"
+                  />
+                </XStack>
+                {marks
+                  .sort(
+                    (a: any, b: any) =>
+                      DateTime.fromISO(b.MarkDate).toMillis() -
+                      DateTime.fromISO(a.MarkDate).toMillis()
+                  )
+                  .map((mark: any, n: number) => (
+                    <View key={n} width="100%" overflow="scroll">
+                      <XStack gap={16} width="100%" alignItems="center">
+                        <Text fontSize="$6" fontWeight="bold" width={40}>
+                          {mark.MarkText}
+                        </Text>
+                        <YStack
+                          width={
+                            Dimensions.get("screen").width - 2 * 16 - 16 - 40
+                          }
+                        >
+                          <XStack justifyContent="space-between">
+                            <Text fontSize={11}>{mark.Subject?.Name}</Text>
+                            <Text fontSize={11}>
+                              Váha {mark.Weight.toString()}
+                            </Text>
+                          </XStack>
+                          <Text width="100%">{mark.Caption}</Text>
+                        </YStack>
+                      </XStack>
+                    </View>
+                  ))}
+              </YStack>
+            ))}
         </YStack>
       </ScrollView>
     </AppContainer>
