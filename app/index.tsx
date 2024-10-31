@@ -1,15 +1,146 @@
-import { Text, View } from "react-native";
+import AppContainer from "@/components/AppContainer/AppContainer";
+import { Dimensions, StatusBar } from "react-native";
+import { Button, Text, XStack, YStack } from "tamagui";
+import Constants from "expo-constants";
+import IconNumber1 from "tabler-icons-react-native/icons-js/IconNumber1";
+import IconMessage from "tabler-icons-react-native/icons-js/IconMessage";
+import IconMoodSick from "tabler-icons-react-native/icons-js/IconMoodSick";
+import IconTable from "tabler-icons-react-native/icons-js/IconTable";
+import IconUser from "tabler-icons-react-native/icons-js/IconUser";
+import IconUsers from "tabler-icons-react-native/icons-js/IconUsers";
+import IconMath from "tabler-icons-react-native/icons-js/IconMath";
+import IconBook from "tabler-icons-react-native/icons-js/IconBook";
+import IconHome from "tabler-icons-react-native/icons-js/IconHome";
+import IconSectionSign from "tabler-icons-react-native/icons-js/IconSectionSign";
+import IconBell from "tabler-icons-react-native/icons-js/IconBell";
+import IconCoins from "tabler-icons-react-native/icons-js/IconCoins";
+import IconFiles from "tabler-icons-react-native/icons-js/IconFiles";
+import { Link, Redirect, router } from "expo-router";
+import { Suspense, useEffect, useState } from "react";
+import user from "@/api/user";
+
+const numberOfButtons = 3;
+const buttonSpacing = 16;
 
 export default function Index() {
+  const btn_width =
+    (Dimensions.get("screen").width -
+      16 * 2 -
+      buttonSpacing * (numberOfButtons - 1)) /
+    numberOfButtons;
+
+  const [user_data, setUserData] = useState<any>(null);
+
+  useEffect(() => {
+    user().then((res) => setUserData(res.data));
+  }, []);
+
+  if (user_data === null)
+    return (
+      <AppContainer>
+        <Text>Loading...</Text>
+      </AppContainer>
+    );
+  if ("error" in user_data || "Message" in user_data)
+    return <Redirect href="/login" />;
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <AppContainer>
+      <Text fontSize="$6">BetterBaka</Text>
+      <XStack
+        gap={16}
+        justifyContent="center"
+        alignContent="center"
+        paddingTop={25}
+        paddingBottom={25}
+      >
+        <IconUser size={25} stroke={1} color={"#ffffff"} />
+        <Text fontSize={"$4"}>{user_data.FullName}</Text>
+      </XStack>
+      <XStack gap={16}>
+        <Button
+          width={btn_width}
+          height={btn_width}
+          onPress={() => router.push("/marks")}
+        >
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconNumber1 color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>Známky</Text>
+          </YStack>
+        </Button>
+        <Button width={btn_width} height={btn_width}>
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconMessage color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>Komens</Text>
+          </YStack>
+        </Button>
+        <Button width={btn_width} height={btn_width}>
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconMoodSick color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>Absence</Text>
+          </YStack>
+        </Button>
+      </XStack>
+      <XStack gap={16}>
+        <Button width={btn_width} height={btn_width}>
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconTable color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>Rozvrh</Text>
+          </YStack>
+        </Button>
+        <Button width={btn_width} height={btn_width}>
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconUsers color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>Suplování</Text>
+          </YStack>
+        </Button>
+        <Button width={btn_width} height={btn_width}>
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconMath color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>Předměty</Text>
+          </YStack>
+        </Button>
+      </XStack>
+      <XStack gap={16}>
+        <Button width={btn_width} height={btn_width}>
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconBook color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>Výuka</Text>
+          </YStack>
+        </Button>
+        <Button width={btn_width} height={btn_width}>
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconHome color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>Domácí úkoly</Text>
+          </YStack>
+        </Button>
+        <Button width={btn_width} height={btn_width}>
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconSectionSign color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>GDPR</Text>
+          </YStack>
+        </Button>
+      </XStack>
+      <XStack gap={16}>
+        <Button width={btn_width} height={btn_width}>
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconBell color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>Infokanál</Text>
+          </YStack>
+        </Button>
+        <Button width={btn_width} height={btn_width}>
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconCoins color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>Platby</Text>
+          </YStack>
+        </Button>
+        <Button width={btn_width} height={btn_width}>
+          <YStack justifyContent="center" alignItems="center" gap={8}>
+            <IconFiles color={"#fff"} size={40} stroke={1} />
+            <Text fontSize={11}>Dokumenty</Text>
+          </YStack>
+        </Button>
+      </XStack>
+    </AppContainer>
   );
 }
